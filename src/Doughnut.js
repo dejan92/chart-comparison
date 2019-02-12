@@ -61,7 +61,7 @@ class Doughnut extends Component {
             dataLabels: {
               format: '{point.name}: {point.percentage:.1f} %'
             },
-            innerSize: '20%',
+            innerSize: '80%',
             showInLegend: true
           }
         },
