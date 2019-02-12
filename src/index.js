@@ -7,11 +7,12 @@ import Doughnut from './Doughnut';
 import Area from './Area';
 import Pie from './Pie';
 import SplineChart from './SplineChart';
+import './Design.scss';
 // import Test from './Test';
 
 const routing = (
     <Router>
-      <div>
+      <div className='container'>
         <ul>
           <li>
             <NavLink exact actvieClassName="active" to="/">
