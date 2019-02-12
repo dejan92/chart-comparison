@@ -1,63 +1,38 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
-import { HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, Annotation, Legend, AreaSeries, Tooltip } from 'react-jsx-highcharts';
+// import axios from 'axios';
+
+import { HighchartsChart, withHighcharts, XAxis, YAxis, Title, Subtitle, Annotation, Legend, AreaSeries, Tooltip } from 'react-jsx-highcharts';
 import addAnnotations from 'highcharts/modules/annotations';
 addAnnotations(Highcharts);
 
-// import ExampleCode from '../utils/ExampleCode';
-// import code from './exampleCode';
+// const URL = 'https://www.highcharts.com/samples/data/aapl-c.json';
 
 class Area extends Component {
-
-  render() {
-    const plotOptions = {
-      area: {
-        stacking: 'normal'
-      }
-    }
-
-    return (
-      <div className="app">
-        <HighchartsChart plotOptions={ plotOptions }>
-          <Chart  />
-
-          <Title>Network usage</Title>
-
-          <Subtitle>by protocol</Subtitle>
-
-          <Legend />
-
-          <Tooltip valueSuffix=" k"/>
-
-          <XAxis id="myXaxis" type="datetime">
-            <XAxis.Title>Unique users</XAxis.Title>
-          </XAxis>
-
-          <YAxis id="myYaxis">
-            <AreaSeries name="IPv4" data={this.data} />
-            <AreaSeries name="IPv6" data={this.data} />
-          </YAxis>
-
-          <Annotation
-            labels={ [{ text: "App launch", point: { xAxis: "myXaxis", yAxis: "myYaxis", x: 1545170284819, y: 0 } }] } />
-          <Annotation
-            labels={ [{ text: "Network outage", point: { xAxis: "myXaxis", yAxis: "myYaxis", x: 1543096684819, y: 0 } }] } />
-          {/* <Annotation
-            shapes={ [
-              { type: "path",
-              points: [
-                { xAxis: "myXaxis", yAxis: "myYaxis", x: 1543615084819, y: 9,  },
-                { xAxis: "myXaxis", yAxis: "myYaxis", x: 1544479084819, y: 15.4 }
-              ]
-              }
-            ] } /> */}
-
-        </HighchartsChart>
-
-        {/* <ExampleCode name="AreaWithAnnotations">{code}</ExampleCode> */}
-      </div>
-    );
+  constructor(props) {
+      super(props);
+      this.randomizeData = this.randomizeData.bind(this);
+      this.updateComponent = this.updateComponent.bind(this);
   }
+
+  // async componentDidMount() {
+  //   this.setState({ isLoading: true });
+
+  //   try {
+  //     const result = await axios.get(URL);
+
+  //     this.setState({
+  //       data: result,
+  //       isLoading: false
+  //     });
+  //   } catch (error) {
+  //     this.setState({
+  //       error,
+  //       isLoading: false
+  //     });
+  //   }
+  // }
+
   data = [
     [ 1542578284819, 11 ],
     [ 1542664684819, 1.3 ],
@@ -97,8 +72,53 @@ class Area extends Component {
     [ 1545602284819, 12.3 ],
     [ 1545688684819, 10.7 ]
   ]
+  randomizeData() {
+    return this.data.map((arr) => [arr[0], Math.round(Math.random() * 2)]);
+  }
 
-  //to do randomize data option
+  updateComponent() {
+    this.forceUpdate();
+  }
+
+  render() {
+    const plotOptions = {
+      area: {
+        stacking: 'normal'
+      }
+    }
+
+    return (
+      <div className="app">
+        <HighchartsChart plotOptions={ plotOptions }>
+
+          <Title>Network usage</Title>
+
+          <Subtitle>by protocol</Subtitle>
+
+          <Legend />
+
+          <Tooltip valueSuffix=" k"/>
+
+          <XAxis id="myXaxis" type="datetime">
+            <XAxis.Title>Unique users</XAxis.Title>
+          </XAxis>
+
+          <YAxis id="myYaxis">
+            <AreaSeries name="IPv4" data={this.randomizeData()} />
+            <AreaSeries name="IPv6" data={this.randomizeData()} />
+          </YAxis>
+
+          <Annotation
+            labels={ [{ text: "App launch", point: { xAxis: "myXaxis", yAxis: "myYaxis", x: 1545170284819, y: 0 } }] } />
+          <Annotation
+            labels={ [{ text: "Network outage", point: { xAxis: "myXaxis", yAxis: "myYaxis", x: 1543096684819, y: 0 } }] } />
+
+          <button onClick={this.updateComponent}>Randomize Data</button>
+        </HighchartsChart>
+      </div>
+    );
+  }
+
 }
 
 export default withHighcharts(Area, Highcharts);

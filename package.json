@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "annotations": "^0.1.340",
+    "axios": "^0.18.0",
     "highcharts": "^7.0.2",
     "highcharts-react": "0.0.3",
     "highcharts-react-official": "^2.0.0",

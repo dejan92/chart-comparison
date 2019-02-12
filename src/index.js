@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Route, NavLink, BrowserRouter as Router, Switch } from "react-router-dom";
 import App from './App';
-import AreaTest from './AreaTest';
+import AreaSplineSmooth from './AreaTest';
 import Doughnut from './Doughnut';
 import Area from './Area';
 import Pie from './Pie';
@@ -52,7 +52,7 @@ const routing = (
         <hr />
         <Switch>
           <Route exact path="/" component={App} />
-          <Route path="/areaSpline" component={AreaTest} />
+          <Route path="/areaSpline" component={AreaSplineSmooth} />
           <Route path="/doughnut" component={Doughnut} />
           <Route path="/area" component={Area} />
           <Route path="/pie" component={Pie} />
